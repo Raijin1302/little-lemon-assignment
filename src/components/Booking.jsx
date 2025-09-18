@@ -10,11 +10,12 @@ const Booking = () => {
   const [guests, setGuests] = useState("")
   const [requests, setRequests] = useState("")
 
-  //erroe
+  // error
   const [errors, setErrors] = useState({})
   const [touched, setTouched] = useState({})
   // 3) Helper: ngày hôm nay (để chặn chọn ngày quá khứ ở input date)
   const todayStr = useMemo(() => new Date().toISOString().split("T")[0], [])
+
   const validator = {
     name: (v) => (v.trim() ? "" : "Please enter your full name."),
     phone: (v) =>
@@ -34,13 +35,13 @@ const Booking = () => {
     guests: (v) => {
       const n = Number(v)
       if (v === "" || Number.isNaN(n)) return "Enter number of guests."
-
       if (n < 1 || n > 10) return "Guests must be between 1 and 10."
-
       return ""
     },
   }
+
   // 5) Không cho đặt trong quá khứ (khi đã có cả date & time)
+
   const notPast = (d, t) => {
     if (!d || !t) return ""
     const [Y, M, D] = d.split("-").map(Number)
@@ -50,6 +51,7 @@ const Booking = () => {
       ? "Selected date & time cannot be in the past."
       : ""
   }
+
   const validateAll = () => {
     const es = {
       name: validator.name(name),
@@ -59,16 +61,15 @@ const Booking = () => {
       time: validator.time(time),
       guests: validator.guests(guests),
     }
+
     // gắn lỗi quá khứ vào date/time (ưu tiên gắn vào cả 2 để user thấy rõ)
     const pastMsg = notPast(date, time)
     if (!es.date) es.date = pastMsg || ""
     if (!es.time) es.time = pastMsg || ""
-
-    // lọc field không có lỗi
     Object.keys(es).forEach((k) => !es[k] && delete es[k])
     return es
   }
-  //For ux when done typing check validate
+
   const validateOne = (nameKey) => {
     let msg = ""
     switch (nameKey) {
@@ -95,11 +96,13 @@ const Booking = () => {
     }
     setErrors((prev) => ({ ...prev, [nameKey]: msg || undefined }))
   }
+
   const onBlur = (e) => {
     const k = e.target.name
     setTouched((t) => ({ ...t, [k]: true }))
     validateOne(k)
   }
+
   const onSubmit = (e) => {
     e.preventDefault()
     // mark all touched
@@ -115,9 +118,7 @@ const Booking = () => {
     })
     const es = validateAll()
     setErrors(es)
-
     if (Object.keys(es).length === 0) {
-      // submit “fake”
       console.log("payload:", {
         name,
         phone,
@@ -129,7 +130,6 @@ const Booking = () => {
         requests,
       })
       alert("Booking submitted!")
-      // reset
       setName("")
       setPhone("")
       setEmail("")
@@ -142,22 +142,28 @@ const Booking = () => {
       setTouched({})
     }
   }
-  // 9) Class helper (đổi border khi lỗi)
+
   const cls = (n) =>
-    `w-full rounded-md border bg-white py-3 px-6 text-base font-medium outline-none focus:shadow-md ${
-      errors[n]
-        ? "border-red-500 focus:border-red-500"
-        : "border-[#e0e0e0] focus:border-[#6A64F1]"
-    }`
+    `w-full rounded-lg border bg-white py-3 px-4 text-base font-medium outline-none
+     transition-all duration-200 placeholder:text-gray-400
+     ${
+       errors[n]
+         ? "border-red-500 ring-2 ring-red-200 focus:border-red-500 focus:ring-red-200"
+         : "border-gray-200 focus:border-[#6A64F1] focus:ring-2 focus:ring-[#6A64F1]/30"
+     }
+     shadow-sm focus:shadow-md`
+
   return (
-    <div className="flex items-center justify-center p-12 ">
-      {/* Author: FormBold Team */}
-      <div className="mx-auto w-full max-w-[550px] bg-white ">
-        <form onSubmit={onSubmit}>
-          <div className="mb-5">
+    <div className="min-h-screen flex items-start sm:items-center justify-center p-6 sm:p-12 bg-[#FCEFD9]">
+      <div
+        className="mx-auto w-full max-w-[600px] bg-white/95 backdrop-blur
+                   border border-gray-200 rounded-2xl shadow-xl ring-1 ring-black/5 p-6 sm:p-8"
+      >
+        <form onSubmit={onSubmit} className="space-y-5">
+          <div>
             <label
               htmlFor="name"
-              className="mb-3 block text-base font-medium text-[#07074D]"
+              className="mb-2 block text-sm font-semibold text-[#07074D]"
             >
               Full Name
             </label>
@@ -175,10 +181,11 @@ const Booking = () => {
               <p className="mt-2 text-sm text-red-600">{errors.name}</p>
             )}
           </div>
-          <div className="mb-5">
+
+          <div>
             <label
               htmlFor="phone"
-              className="mb-3 block text-base font-medium text-[#07074D]"
+              className="mb-2 block text-sm font-semibold text-[#07074D]"
             >
               Phone Number
             </label>
@@ -196,10 +203,11 @@ const Booking = () => {
               <p className="mt-2 text-sm text-red-600">{errors.phone}</p>
             )}
           </div>
-          <div className="mb-5">
+
+          <div>
             <label
               htmlFor="email"
-              className="mb-3 block text-base font-medium text-[#07074D]"
+              className="mb-2 block text-sm font-semibold text-[#07074D]"
             >
               Email Address
             </label>
@@ -213,106 +221,99 @@ const Booking = () => {
               placeholder="Enter your email"
               className={cls("email")}
             />
+            {touched.email && errors.email && (
+              <p className="mt-2 text-sm text-red-600">{errors.email}</p>
+            )}
           </div>
-          <div className="-mx-3 flex flex-wrap">
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="date"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Date
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  id="date"
-                  value={date}
-                  min={todayStr}
-                  onChange={(e) => setDate(e.target.value)}
-                  onBlur={onBlur}
-                  className={cls("date")}
-                />
-                {touched.date && errors.date && (
-                  <p className="mt-2 text-sm text-red-600">{errors.date}</p>
-                )}
-              </div>
-            </div>
-            <div className="w-full px-3 sm:w-1/2">
-              <div className="mb-5">
-                <label
-                  htmlFor="time"
-                  className="mb-3 block text-base font-medium text-[#07074D]"
-                >
-                  Time
-                </label>
-                <input
-                  type="time"
-                  name="time"
-                  id="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  onBlur={onBlur}
-                  className={cls("time")}
-                />
-                {touched.time && errors.time && (
-                  <p className="mt-2 text-sm text-red-600">{errors.time}</p>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="mb-5">
-            <label
-              htmlFor="name"
-              className="mb-3 block text-base font-medium text-[#07074D]"
-            >
-              Occasion
-            </label>
-            <div className="mb-5">
-              <select
-                id="book-occasion"
-                value={occasion}
-                onChange={(e) => setOccasion(e.target.value)}
-                onBlur={onBlur}
-                className={cls("occasion")}
+
+          <div className="-mx-2 flex flex-wrap">
+            <div className="w-full px-2 sm:w-1/2">
+              <label
+                htmlFor="date"
+                className="mb-2 block text-sm font-semibold text-[#07074D]"
               >
-                <option value="">Select an Occasion</option>
-                <option value="Birthday">Birthday</option>
-                <option value="Anniversary">Anniversary</option>
-                <option value="Date Night">Date Night</option>
-                <option value="Business Dinner">Business Dinner</option>
-                <option value="Family Gathering">Family Gathering</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
-          <div className="mb-5">
-            <label
-              htmlFor="name"
-              className="mb-3 block text-base font-medium text-[#07074D]"
-            >
-              Number of Guests *
-            </label>
-            <div className="mb-5">
+                Date
+              </label>
               <input
-                type="number"
-                placeholder="1-10 guests"
-                min="1"
-                max="10"
-                value={guests}
-                onChange={(e) => setGuests(e.target.value)}
+                type="date"
+                name="date"
+                id="date"
+                value={date}
+                min={todayStr}
+                onChange={(e) => setDate(e.target.value)}
                 onBlur={onBlur}
-                className={cls("guests")}
+                className={cls("date")}
               />
-              {touched.guests && errors.guests && (
-                <p className="mt-2 text-sm text-red-600">{errors.guests}</p>
+              {touched.date && errors.date && (
+                <p className="mt-2 text-sm text-red-600">{errors.date}</p>
+              )}
+            </div>
+            <div className="w-full px-2 sm:w-1/2">
+              <label
+                htmlFor="time"
+                className="mb-2 block text-sm font-semibold text-[#07074D]"
+              >
+                Time
+              </label>
+              <input
+                type="time"
+                name="time"
+                id="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                onBlur={onBlur}
+                className={cls("time")}
+              />
+              {touched.time && errors.time && (
+                <p className="mt-2 text-sm text-red-600">{errors.time}</p>
               )}
             </div>
           </div>
-          <div className="mb-5 pt-3">
+
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-[#07074D]">
+              Occasion
+            </label>
+            <select
+              id="book-occasion"
+              value={occasion}
+              onChange={(e) => setOccasion(e.target.value)}
+              onBlur={onBlur}
+              className={cls("occasion")}
+            >
+              <option value="">Select an Occasion</option>
+              <option value="Birthday">Birthday</option>
+              <option value="Anniversary">Anniversary</option>
+              <option value="Date Night">Date Night</option>
+              <option value="Business Dinner">Business Dinner</option>
+              <option value="Family Gathering">Family Gathering</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-[#07074D]">
+              Number of Guests *
+            </label>
+            <input
+              type="number"
+              placeholder="1-10 guests"
+              min="1"
+              max="10"
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
+              onBlur={onBlur}
+              className={cls("guests")}
+            />
+            {touched.guests && errors.guests && (
+              <p className="mt-2 text-sm text-red-600">{errors.guests}</p>
+            )}
+          </div>
+
+          <div className="pt-1">
             <label
               htmlFor="book-requests"
-              className="block mb-2 font-bold text-[#495E57]"
+              className="mb-2 block text-sm font-semibold text-[#07074D]"
             >
               Special Requests (Optional)
             </label>
@@ -322,12 +323,18 @@ const Booking = () => {
               value={requests}
               onChange={(e) => setRequests(e.target.value)}
               onBlur={onBlur}
-              className="w-full p-3 border-2 border-gray-300 rounded-lg text-base transition-colors duration-300 box-border resize-y font-inherit min-w-0"
+              className={`min-h-[96px] ${cls("requests")}`}
               placeholder="Any dietary restrictions, seating preferences, or special requests..."
             />
           </div>
-          <div>
-            <button className="hover:shadow-form w-full rounded-md bg-yellow-400 text-black hover:bg-yellow-500 py-3 px-8 text-center text-base font-semibold outline-none">
+
+          <div className="pt-2">
+            <button
+              className="w-full rounded-lg bg-yellow-400 text-black py-3 px-8 text-center text-base font-semibold
+                         shadow-md hover:shadow-lg hover:bg-yellow-500
+                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-300
+                         transition-colors"
+            >
               Book Appointment
             </button>
           </div>
