@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react"
 
-const Booking = () => {
+const Booking = ({ submitForm }) => {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
@@ -103,7 +103,7 @@ const Booking = () => {
     validateOne(k)
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     // mark all touched
     setTouched({
@@ -116,30 +116,36 @@ const Booking = () => {
       occasion: true,
       requests: true,
     })
-    const es = validateAll()
-    setErrors(es)
-    if (Object.keys(es).length === 0) {
-      console.log("payload:", {
-        name,
-        phone,
-        email,
-        date,
-        time,
-        occasion,
-        guests,
-        requests,
-      })
-      alert("Booking submitted!")
-      setName("")
-      setPhone("")
-      setEmail("")
-      setDate("")
-      setTime("")
-      setOccasion("")
-      setGuests("")
-      setRequests("")
-      setErrors({})
-      setTouched({})
+    const estimate = validateAll()
+    setErrors(estimate)
+    if (Object.keys(estimate).length === 0) {
+      try {
+        // gọi submitForm từ Main (truyền qua props)
+        await submitForm({
+          name,
+          phone,
+          email,
+          date,
+          time,
+          occasion,
+          guests,
+          requests,
+        })
+        // Nếu thành công thì reset form
+        setName("")
+        setPhone("")
+        setEmail("")
+        setDate("")
+        setTime("")
+        setOccasion("")
+        setGuests("")
+        setRequests("")
+        setErrors({})
+        setTouched({})
+      } catch (error) {
+        console.error("Submit failed:", err)
+        alert("Something went wrong. Please try again!")
+      }
     }
   }
 
