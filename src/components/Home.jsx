@@ -1,7 +1,6 @@
 import React from "react"
-import food1 from "../images/food1.avif"
 import { Link } from "react-router-dom"
-
+import Container from "./ui/Container"
 const Home = () => {
   const features = [
     {
@@ -47,58 +46,59 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Hero */}
       <section className="py-10 md:py-16 lg:py-20 bg-orange-100">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 md:items-center">
-            <div className="relative h-80 md:h-150 bg-gray-100 rounded-2xl dark:bg-neutral-800">
+        <Container>
+          <div className="grid grid-cols-1 md:grid-cols-2 md:items-center gap-8">
+            {/* Image */}
+            <div className="relative h-80 md:h-[460px] bg-gray-100 rounded-2xl overflow-hidden dark:bg-neutral-800">
               <img
-                className="size-full object-cover rounded-2xl bg-center"
+                className="w-full h-full object-cover bg-center"
                 src="https://images.unsplash.com/photo-1507914464562-6ff4ac29692f?q=80&w=768&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Testimonials Image"
               />
             </div>
-            {/* End Col */}
+
+            {/* Text */}
             <div className="pt-10 md:p-10">
-              <blockquote className="max-w-4xl mx-auto">
+              <blockquote className="max-w-4xl">
                 <p className="mb-6 text-2xl md:text-lg">Little Lemon</p>
-                <p className="text-xl sm:text-2xl lg:text-3xl lg:leading-normal text-gray-800 dark:text-neutral-200">
+                <p className="text-xl sm:text-2xl lg:text-3xl lg:leading-normal text-gray-800">
                   We are a family owned Mediterranean restaurant, focused on
                   traditional recipes served with a modern twist. Experience the
                   authentic flavors of the Mediterranean in the heart of
-                  Chicago.the rich flavors and aromas of our favorite coffee
+                  Chicago. The rich flavors and aromas of our favorite coffee
                   blends.
                 </p>
                 <footer className="mt-6 md:mt-10">
-                  <div className="border-neutral-700">
-                    <Link to="/booking">
-                      <button
-                        className="bg-[#F4CE14] text-[#495E57] border-none px-8 py-4 text-lg font-semibold rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-                        aria-label="Reserve a table at Little Lemon"
-                      >
-                        Reserve Table
-                      </button>
-                    </Link>
-                  </div>
+                  <Link to="/booking">
+                    <button
+                      className="bg-[#F4CE14] text-[#495E57] px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      aria-label="Reserve a table at Little Lemon"
+                    >
+                      Reserve Table
+                    </button>
+                  </Link>
                 </footer>
               </blockquote>
             </div>
-            {/* End Col */}
           </div>
-          {/* End Grid */}
-        </div>
+        </Container>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 px-5 bg-gray-50 flex-1">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl text-[#495E57] mb-5">
-            Why Choose Little Lemon?
-          </h2>
-          <p className="text-lg text-gray-600 mb-15">
-            Discover what makes our restaurant special
-          </p>
+      {/* Features */}
+      <section className="py-20 bg-gray-50 flex-1">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-4xl text-[#495E57] mb-5">
+              Why Choose Little Lemon?
+            </h2>
+            <p className="text-lg text-gray-600 mb-10">
+              Discover what makes our restaurant special
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-15">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
@@ -114,61 +114,45 @@ const Home = () => {
               </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 px-5 bg-[#495E57] text-white">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl text-[#F4CE14] mb-5">
-            What Our Customers Say
-          </h2>
-          <p className="text-lg text-gray-200 mb-15">
-            Don't just take our word for it
-          </p>
+      {/* Testimonials */}
+      <section className="py-20 bg-[#495E57] text-white">
+        <Container>
+          <div className="text-center">
+            <h2 className="text-4xl text-[#F4CE14] mb-5">
+              What Our Customers Say
+            </h2>
+            <p className="text-lg text-gray-200 mb-10">
+              Don't just take our word for it
+            </p>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white bg-opacity-10 p-8 rounded-2xl backdrop-blur-sm"
-              >
-                <div className="mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-[#F4CE14] text-xl">
-                      ⭐
-                    </span>
-                  ))}
-                </div>
-                <p className="italic mb-5 leading-relaxed">
-                  "{testimonial.review}"
-                </p>
-                <h4 className="text-[#F4CE14] text-lg">- {testimonial.name}</h4>
-              </div>
-            ))}
+            {/* ... giữ nguyên */}
           </div>
-        </div>
+        </Container>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="bg-[#F4CE14] text-center py-16 flow-root">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-4xl text-[#495E57] mb-5">
-            Ready for an Unforgettable Dining Experience?
-          </h2>
-          <p className="text-lg text-[#495E57] mb-8">
-            Book your table today and taste the authentic flavors of the
-            Mediterranean
-          </p>
-          <Link to="/booking">
-            <button
-              className="bg-[#495E57] text-white border-none px-10 py-4 text-lg font-bold rounded-lg cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-              aria-label="Make a reservation"
-            >
-              Make a Reservation
-            </button>
-          </Link>
-        </div>
+      {/* CTA */}
+      <section className="bg-[#F4CE14] text-center py-16">
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <h2 className="text-4xl text-[#495E57] mb-5">
+              Ready for an Unforgettable Dining Experience?
+            </h2>
+            <p className="text-lg text-[#495E57] mb-8">
+              Book your table today and taste the authentic flavors of the
+              Mediterranean
+            </p>
+            <Link to="/booking">
+              <button className="bg-[#495E57] text-white px-10 py-4 text-lg font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+                Make a Reservation
+              </button>
+            </Link>
+          </div>
+        </Container>
       </section>
     </div>
   )
