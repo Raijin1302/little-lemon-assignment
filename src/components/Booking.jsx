@@ -165,7 +165,7 @@ const Booking = ({ submitForm }) => {
         className="mx-auto w-full max-w-[600px] bg-white/95 backdrop-blur
                    border border-gray-200 rounded-2xl shadow-xl ring-1 ring-black/5 p-6 sm:p-8"
       >
-        <form onSubmit={onSubmit} className="space-y-5">
+        <form onSubmit={onSubmit} noValidate className="space-y-5">
           <div>
             <label
               htmlFor="name"

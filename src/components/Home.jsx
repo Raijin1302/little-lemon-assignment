@@ -73,7 +73,7 @@ const Home = () => {
                 <footer className="mt-6 md:mt-10">
                   <Link to="/booking">
                     <button
-                      className="bg-[#F4CE14] text-[#495E57] px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                      className="bg-[#F4CE14] text-[#2F5D62] px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                       aria-label="Reserve a table at Little Lemon"
                     >
                       Reserve Table
@@ -90,7 +90,7 @@ const Home = () => {
       <section className="py-20 bg-gray-50 flex-1">
         <Container>
           <div className="text-center">
-            <h2 className="text-4xl text-[#495E57] mb-5">
+            <h2 className="text-4xl text-[#2F5D62] mb-5">
               Why Choose Little Lemon?
             </h2>
             <p className="text-lg text-gray-600 mb-10">
@@ -105,7 +105,7 @@ const Home = () => {
                 className="bg-white p-10 rounded-2xl shadow-lg text-center transition-transform duration-300 hover:scale-105 hover:shadow-xl"
               >
                 <div className="text-5xl mb-5">{feature.icon}</div>
-                <h3 className="text-2xl text-[#495E57] mb-4">
+                <h3 className="text-2xl text-[#2F5D62] mb-4">
                   {feature.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -118,7 +118,7 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-[#495E57] text-white">
+      <section className="py-20 bg-[#2F5D62] text-white">
         <Container>
           <div className="text-center">
             <h2 className="text-4xl text-[#F4CE14] mb-5">
@@ -139,15 +139,11 @@ const Home = () => {
       <section className="bg-[#F4CE14] text-center py-16">
         <Container>
           <div className="max-w-3xl mx-auto space-y-6">
-            <h2 className="text-4xl text-[#495E57] mb-5">
+            <h2 className="text-4xl text-[#2F5D62] mb-5">
               Ready for an Unforgettable Dining Experience?
             </h2>
-            <p className="text-lg text-[#495E57] mb-8">
-              Book your table today and taste the authentic flavors of the
-              Mediterranean
-            </p>
             <Link to="/booking">
-              <button className="bg-[#495E57] text-white px-10 py-4 text-lg font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+              <button className="bg-[#2F5D62] text-white px-10 py-4 text-lg font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                 Make a Reservation
               </button>
             </Link>
