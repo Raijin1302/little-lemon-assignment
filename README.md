@@ -59,16 +59,16 @@ little-lemon-assignment/
 │  │  └─ Booking.test.jsx
 │  ├─ assets/
 │  ├─ images/
-│  ├─ components/                # shared, low-level building blocks
-│  ├─ ui/                        # feature/page-level components
+│  ├─ components/                # page/feature components
 │  │  ├─ Booking.jsx
 │  │  ├─ ConfirmedBooking.jsx
-│  │  ├─ Container.jsx
 │  │  ├─ Footer.jsx
 │  │  ├─ Home.jsx
-│  │  ├─ Icons.jsx
 │  │  ├─ Main.jsx
 │  │  └─ Nav.jsx
+│  ├─ ui/                        # small UI primitives
+│  │  ├─ Container.jsx
+│  │  └─ Icon.jsx
 │  ├─ App.css
 │  ├─ App.jsx
 │  ├─ index.css
