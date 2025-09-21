@@ -6,7 +6,7 @@ import Container from "./ui/Container"
 
 const links = [
   { label: "Home", to: "/", end: true },
-  { label: "Listings", to: "/listings" },
+  { label: "Booking", to: "/booking" },
   { label: "Product", to: "/product" },
   { label: "Checkout", to: "/checkout" },
 ]
