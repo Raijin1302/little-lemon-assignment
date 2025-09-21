@@ -15,6 +15,25 @@ A small React application built with **Vite** and **React Router**, featuring a 
 
 ## 🚀 Getting Started
 
+## 🧰 npm Scripts
+
+| Script    | Purpose               |
+| --------- | --------------------- |
+| `dev`     | Start Vite dev server |
+| `build`   | Build for production  |
+| `preview` | Preview built app     |
+| `lint`    | Run ESLint            |
+| `test`    | Run Jest test suite   |
+
+---
+
+## ✅ Submission Notes
+
+- Ensure all tests pass locally (`npm test`) before submitting.
+- Include this `README.md` so reviewers know how to install and run the project.
+
+---
+
 ### 1) Prerequisites
 
 - Node.js (recommend **v18+**)
@@ -203,25 +222,6 @@ render(
   </MemoryRouter>
 )
 ```
-
----
-
-## 🧰 npm Scripts
-
-| Script    | Purpose               |
-| --------- | --------------------- |
-| `dev`     | Start Vite dev server |
-| `build`   | Build for production  |
-| `preview` | Preview built app     |
-| `lint`    | Run ESLint            |
-| `test`    | Run Jest test suite   |
-
----
-
-## ✅ Submission Notes
-
-- Ensure all tests pass locally (`npm test`) before submitting.
-- Include this `README.md` so reviewers know how to install and run the project.
 
 ---
 
