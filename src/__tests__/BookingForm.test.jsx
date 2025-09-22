@@ -1,7 +1,7 @@
-// src/__tests__/Booking.test.jsx
+// src/__tests__/BookingForm.test.jsx
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import Booking from "../components/Booking"
+import BookingForm from "../components/BookingForm"
 
 // Helper: tạo ngày theo format yyyy-mm-dd
 function futureDate(days = 1) {
@@ -17,7 +17,7 @@ describe("Booking form", () => {
   // 1) Render cơ bản — các field xuất hiện
   test("Render: hiện đủ các field cơ bản", () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     expect(screen.getByLabelText(/full name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/phone number/i)).toBeInTheDocument()
@@ -43,7 +43,7 @@ describe("Booking form", () => {
   // 2) Điền dữ liệu hợp lệ → gọi submitForm (1 lần) + payload cơ bản
   test("Submit hợp lệ → gọi submitForm đúng 1 lần với dữ liệu hợp lệ", async () => {
     const mockSubmit = jest.fn().mockResolvedValue(true)
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     await userEvent.type(screen.getByLabelText(/full name/i), "Nguyen Hoan")
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
@@ -87,7 +87,7 @@ describe("Booking form", () => {
   // 3A) Email sai format → KHÔNG gọi submitForm + hiện lỗi chính xác
   test("Email sai format → không gọi submitForm và hiện 'Please enter a valid email.'", async () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     await userEvent.type(screen.getByLabelText(/full name/i), "Nguyen Hoan")
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
@@ -118,7 +118,7 @@ describe("Booking form", () => {
   // 3B) Ngày quá khứ → KHÔNG gọi submitForm + hiện lỗi đúng chuỗi trong component
   test("Ngày quá khứ → không gọi submitForm và hiện 'Selected date & time cannot be in the past.'", async () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     await userEvent.type(screen.getByLabelText(/full name/i), "Nguyen Hoan")
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
@@ -148,7 +148,7 @@ describe("Booking form", () => {
   // 3C) Guests <1 → KHÔNG gọi submitForm + hiện lỗi chính xác
   test("Guests < 1 → không gọi submitForm và hiện 'Guests must be between 1 and 10.'", async () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     await userEvent.type(screen.getByLabelText(/full name/i), "Nguyen Hoan")
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
@@ -176,7 +176,7 @@ describe("Booking form", () => {
   // 3D) Guests >10 → KHÔNG gọi submitForm + hiện lỗi chính xác
   test("Guests > 10 → không gọi submitForm và hiện 'Guests must be between 1 and 10.'", async () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     await userEvent.type(screen.getByLabelText(/full name/i), "Nguyen Hoan")
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
@@ -204,7 +204,7 @@ describe("Booking form", () => {
   // 3E) Thiếu Full Name → KHÔNG gọi submitForm + hiện lỗi bắt buộc đúng chuỗi
   test("Thiếu Full Name → không gọi submitForm và hiện 'Please enter your full name.'", async () => {
     const mockSubmit = jest.fn()
-    render(<Booking submitForm={mockSubmit} />)
+    render(<BookingForm submitForm={mockSubmit} />)
 
     // Bỏ trống name
     await userEvent.type(screen.getByLabelText(/phone number/i), "0912345678")
